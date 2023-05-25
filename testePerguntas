@@ -1,0 +1,46 @@
+    private void obterPerguntas(){
+        try {
+            DefaultTableModel model = (DefaultTableModel) perguntasTable.getModel();
+            var dao = new PerguntasDAO();
+            var rs = dao.obterPerguntas();
+            var rsmd = rs.getMetaData();
+            int cols = rsmd.getColumnCount();
+            String[] colName = new String[cols];
+            for(int i=0; i < cols; i++){
+                colName[i]=rsmd.getColumnName(i+1);
+            }
+            model.setColumnIdentifiers(colName);
+            String id, alternativa1, alternativa2, alternativa3, alternativa4, Pergunta, Resposta, Pontos;
+            while(rs.next()){
+                id = rs.getString(1);
+                alternativa1 = rs.getString(2);
+                alternativa2 = rs.getString(3);
+                alternativa3 = rs.getString(4);
+                alternativa4 = rs.getString(5);
+                Pergunta = rs.getString(6);
+                Resposta = rs.getString(7);
+                Pontos = rs.getString(8);
+                String[]row = {id, alternativa1, alternativa2, alternativa3, alternativa4, Pergunta, Resposta, Pontos};
+                model.addRow(row);
+            }
+            
+        } catch (SQLException ex) {
+
+        }
+        
+    }
+    
+    //Classe PerguntasDAO
+    
+        public ResultSet obterPerguntas(){
+        String sql = "select * from Questao";
+        try{
+            var conexao = ConnectionFactory.obterConexao();
+            var ps = conexao.prepareStatement(sql);
+            var rs = ps.executeQuery();
+            conexao.close();
+            return rs;
+        }catch(Exception e){
+        }
+        return null;
+    }
