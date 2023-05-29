@@ -1,4 +1,9 @@
-    private void obterPerguntas(){
+//estou com problemas em fazer esse método apresentar uma tabela com todos os dados, que estão no banco de dados, das perguntas em um JTable
+//os jeitos que encontrei na internet não utilizam de classes DAO para fazer a comunicação com o SQL, eles fazem direto nesta classe
+//aqui eu acabe deixando a comunicacao com o banco na classe DAO, e retornei o valor 'rsmd' que contém os metadados do banco
+//porém para imprimir a tabela inteira preciso continuar a usar a variável 'rs', porém não consigo retornar apenas ele
+
+private void obterPerguntas(){
         try {
             DefaultTableModel model = (DefaultTableModel) perguntasTable.getModel();
             var dao = new PerguntasDAO();
